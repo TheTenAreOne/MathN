@@ -13,6 +13,7 @@ struct Real{
 	void (*multiplication) ( Real, Real, Real * );
 	void (*division) ( Real, Real, Real * );
 	void (*simplify) ( Real * );
+	void (*flip) ( Real * );
 };
 
 //a: first number, b: second number, r: result
@@ -57,6 +58,10 @@ void division(Real a, Real b, Real * r){
 
 void simplify(Real * r){
 	//if they are the same
+	if(r->numerator < 0 && r->denominator < 0){
+		r->numerator *= -1;
+		r->denominator *= -1;
+	}
 	if(r->numerator == r->denominator){
 		r->numerator = 1;
 		r->denominator = 1;
@@ -87,6 +92,15 @@ void simplify(Real * r){
 }
 
 
+//numerator if now denominator and denominator is now numerator
+void flip(Real * r){
+	int temp;
+	temp = r->numerator;
+	r->numerator = r->denominator;
+	r->denominator = temp;
+}
+
+
 Real newReal(int num, int den){
 	Real n;
 	n.numerator = num;
@@ -96,6 +110,7 @@ Real newReal(int num, int den){
 	n.multiplication = &multiplication;
 	n.division = &division;
 	n.simplify = &simplify;
+	n.flip = &flip;
 	return n;
 }
 
