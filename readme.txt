@@ -28,3 +28,6 @@ This is: a / b = r
 
 simplify: r.simplify( &r );
 This is r being simplify
+
+flip: r.flip( &r );
+This ir a / b = b / r
